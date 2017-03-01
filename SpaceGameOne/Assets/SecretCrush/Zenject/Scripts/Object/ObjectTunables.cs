@@ -9,7 +9,7 @@ namespace SecretCrush.Zenject
     [Serializable]
     public class ObjectTunables
     {
-        public ObjectStates InitState = ObjectStates.DefaultState;
+        public int InitState = 1;
         public object[] ExtraArgs = null;
     }
 

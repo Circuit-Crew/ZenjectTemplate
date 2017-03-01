@@ -9,11 +9,13 @@ namespace SpaceGameOne
     {
         [SerializeField] private Settings _settings = null;
 
-        [InjectOptional] private readonly ObjectTunables _settingsOverride = null;
+        [InjectOptional] private ObjectTunables _settingsOverride = null;
 
         public override void InstallBindings()
         {
-            Container.BindInstance(_settingsOverride ?? _settings.DefaultSettings);
+            _settings.DefaultSettings.InitState = (int) _settings.InitState;
+            //Container.BindInstance(_settingsOverride ?? _settings.DefaultSettings);
+            Container.BindInstance(_settings.DefaultSettings);
 
             Container.Bind<PlanetoidModel>().AsSingle();
             Container.Bind<ObjectModel>().To<PlanetoidModel>().AsSingle();
@@ -26,6 +28,7 @@ namespace SpaceGameOne
         [Serializable]
         public class Settings
         {
+            public PlanetoidState InitState;
             public ObjectTunables DefaultSettings;
         }
     }

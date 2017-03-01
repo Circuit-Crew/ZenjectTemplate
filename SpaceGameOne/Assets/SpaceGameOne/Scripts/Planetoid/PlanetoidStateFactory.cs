@@ -1,12 +1,20 @@
 ﻿using System;
 using ModestTree;
 using SecretCrush.Zenject;
+using SpaceGameOne.Planetoid.States;
 using SpaceGameOne.States;
 using UnityEngine;
 using Zenject;
 
 namespace SpaceGameOne
 {
+    public enum PlanetoidState
+    {
+        None,
+        DefaultState,
+        Move
+    }
+
     public class PlanetoidStateFactory : ObjectStateFactory
     {
         public PlanetoidStateFactory(DiContainer container)
@@ -16,23 +24,31 @@ namespace SpaceGameOne
         {
             Assert.That(Application.isEditor);
 
-            foreach (var state in new[] { ObjectStates.DefaultState })
-                Create(state);
+            foreach (var state in new[] { PlanetoidState.DefaultState, PlanetoidState.Move })
+                Create((int) state);
         }
 
-        public override IObjectState Create(ObjectStates state = ObjectStates.DefaultState, object[] extraArgs = null)
+        public override IObjectState Create(int state, object[] extraArgs = null)
         {
-            switch(state)
+            var planetoidStates = (PlanetoidState) state;
+            switch (planetoidStates)
             {
-                case ObjectStates.DefaultState:
+                case PlanetoidState.DefaultState:
                     return Container.Instantiate<PlanetoidStateDefault>();
-                case ObjectStates.None:
+                case PlanetoidState.None:
                     break;
+                case PlanetoidState.Move:
+                    return Container.Instantiate<PlanetoidStateMove>();
                 default:
                     throw new ArgumentOutOfRangeException("state", state, null);
             }
 
             throw Assert.CreateException();
+        }
+
+        public IObjectState Create(PlanetoidState state, object[] extraArgs = null)
+        {
+            return Create((int)state, extraArgs);
         }
     }
 }

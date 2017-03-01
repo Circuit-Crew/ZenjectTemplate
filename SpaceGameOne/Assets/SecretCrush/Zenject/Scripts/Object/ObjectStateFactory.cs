@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using System;
+using Zenject;
 
 namespace SecretCrush.Zenject
 {
@@ -13,6 +14,6 @@ namespace SecretCrush.Zenject
 
         public abstract void Validate();
 
-        public abstract IObjectState Create(ObjectStates state = ObjectStates.DefaultState, object[] extraArgs = null);
+        public abstract IObjectState Create(int state, object[] extraArgs = null);
     }
 }
