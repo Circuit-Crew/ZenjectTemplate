@@ -11,11 +11,11 @@ namespace SecretCrush.Zenject.Editor
 {
     public class TemplateObjectCreatorWindow : ZenjectEditorWindow
     {
-        [MenuItem("Window/TemplateObjectCreatorWindow")]
+        [MenuItem("Window/Secret Crush/Zenject/Template Creator")]
         public static TemplateObjectCreatorWindow GetOrCreateWindow()
         {
             var window = GetWindow<TemplateObjectCreatorWindow>();
-            window.titleContent = new GUIContent("TemplateObjectCreatorWindow");
+            window.titleContent = new GUIContent("TemplateCreator");
             return window;
         }
 
@@ -29,20 +29,22 @@ namespace SecretCrush.Zenject.Editor
     {
         private string _sourcePath;
         private string _targetPath;
-        private string _oldName;
+        private string _oldName = "DerivedObjectTemplate";
         private string _newObjectName;
 
         public void GuiRender()
         {
-            _sourcePath = EditorGUILayout.TextField("Source path", _sourcePath);
+            _sourcePath = EditorGUILayout.TextField(new GUIContent("Source path", "Absolute path to the template folder"), _sourcePath);
 
             if (GUILayout.Button("Get") && (_sourcePath != string.Empty))
                 GetTemplateDir(_sourcePath);
 
-            _targetPath = EditorGUILayout.TextField("Target path", _targetPath);
+            _targetPath = EditorGUILayout.TextField(
+                new GUIContent("Target path", "Absolute path to the destination folder with intended folder name"), _targetPath);
 
-            _oldName = EditorGUILayout.TextField("Old Name", _oldName);
-            _newObjectName = EditorGUILayout.TextField("New Name", _newObjectName);
+            _oldName = EditorGUILayout.TextField(new GUIContent("Old Name", "Common name of the template files"), _oldName);
+            _newObjectName = EditorGUILayout.TextField(new GUIContent("New Name", "New name for template files and classes using Regex"),
+                _newObjectName);
 
             if (GUILayout.Button("Create") && (_newObjectName != string.Empty))
             {
