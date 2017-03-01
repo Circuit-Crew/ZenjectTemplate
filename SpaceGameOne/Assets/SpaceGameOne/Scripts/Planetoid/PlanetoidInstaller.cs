@@ -7,9 +7,9 @@ namespace SpaceGameOne
 {
     public class PlanetoidInstaller : MonoInstaller<PlanetoidInstaller>
     {
-        [SerializeField] private Settings _settings = null;
+        [SerializeField] private readonly Settings _settings = null;
 
-        [InjectOptional] private ObjectTunables _settingsOverride = null;
+        [InjectOptional] private readonly ObjectTunables _settingsOverride = null;
 
         public override void InstallBindings()
         {
@@ -22,11 +22,11 @@ namespace SpaceGameOne
             Container.BindInterfacesAndSelfTo<ObjectStateManager>().AsSingle();
             Container.BindInterfacesTo<ObjectStateCommon>().AsSingle();
         }
-    }
 
-    [Serializable]
-    public class Settings
-    {
-        public ObjectTunables DefaultSettings;
+        [Serializable]
+        public class Settings
+        {
+            public ObjectTunables DefaultSettings;
+        }
     }
 }
