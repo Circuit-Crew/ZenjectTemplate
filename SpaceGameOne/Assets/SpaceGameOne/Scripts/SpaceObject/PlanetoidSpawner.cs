@@ -3,11 +3,11 @@ using SecretCrush.Zenject;
 
 namespace SpaceGameOne
 {
-    public class SpaceObjectSpawner : ObjectSpawner
+    public class PlanetoidSpawner : ObjectSpawner
     {
         private readonly Settings _settings;
 
-        public SpaceObjectSpawner(ObjectGlobalTunables globalTunables, ObjectRegistry registry, SpaceObjectFacade.Factory factory, Settings settings)
+        public PlanetoidSpawner(ObjectGlobalTunables globalTunables, ObjectRegistry registry, PlanetoidFacade.Factory factory, Settings settings)
             : base(globalTunables, registry)
         {
             ObjectFactory = factory;

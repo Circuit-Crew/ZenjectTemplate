@@ -9,13 +9,13 @@ namespace SpaceGameOne
     {
         public ObjectGlobalTunables ObjectGlobalTunablesSettings;
         public GameInstaller.Settings GameInstallerSettings;
-        public SpaceObjectSpawner.Settings SpaceObjectSpawnerSettings;
+        public PlanetoidSpawner.Settings PlanetoidSpawnerSettings;
 
         public override void InstallBindings()
         {
             Container.BindInstance(ObjectGlobalTunablesSettings);
             Container.BindInstance(GameInstallerSettings);
-            Container.BindInstance(SpaceObjectSpawnerSettings);
+            Container.BindInstance(PlanetoidSpawnerSettings);
         }
     }
 }

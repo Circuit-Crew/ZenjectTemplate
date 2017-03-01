@@ -2,7 +2,7 @@
 
 namespace SpaceGameOne.States
 {
-    public class SpaceObjectStateDefault : IObjectState
+    public class PlanetoidStateDefault : IObjectState
     {
         public void Dispose() {}
 
