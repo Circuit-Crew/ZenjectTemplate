@@ -5,20 +5,20 @@ using Zenject;
 
 namespace SpaceGameOne
 {
-    public class SpaceObjectInstaller : MonoInstaller<SpaceObjectInstaller>
+    public class PlanetoidInstaller : MonoInstaller<PlanetoidInstaller>
     {
         [SerializeField] private Settings _settings = null;
 
-        [InjectOptional] private ObjectTunables _settingsOverride = null;
+        [InjectOptional] private readonly ObjectTunables _settingsOverride = null;
 
         public override void InstallBindings()
         {
             Container.BindInstance(_settingsOverride ?? _settings.DefaultSettings);
 
-            Container.Bind<SpaceObjectModel>().AsSingle();
-            Container.Bind<ObjectModel>().To<SpaceObjectModel>().AsSingle();
-            Container.BindInterfacesAndSelfTo<SpaceObjectStateFactory>().AsSingle();
-            Container.Bind<ObjectStateFactory>().To<SpaceObjectStateFactory>().AsSingle();
+            Container.Bind<PlanetoidModel>().AsSingle();
+            Container.Bind<ObjectModel>().To<PlanetoidModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlanetoidStateFactory>().AsSingle();
+            Container.Bind<ObjectStateFactory>().To<PlanetoidStateFactory>().AsSingle();
             Container.BindInterfacesAndSelfTo<ObjectStateManager>().AsSingle();
             Container.BindInterfacesTo<ObjectStateCommon>().AsSingle();
         }
@@ -29,6 +29,4 @@ namespace SpaceGameOne
             public ObjectTunables DefaultSettings;
         }
     }
-
-
 }

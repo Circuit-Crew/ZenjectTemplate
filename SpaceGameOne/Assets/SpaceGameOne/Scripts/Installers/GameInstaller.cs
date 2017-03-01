@@ -12,10 +12,10 @@ namespace SpaceGameOne
         public override void InstallBindings()
         {
             Container.Bind<ObjectRegistry>().AsSingle();
-            Container.BindFactory<ObjectTunables, ObjectFacade, SpaceObjectFacade.Factory>()
+            Container.BindFactory<ObjectTunables, ObjectFacade, PlanetoidFacade.Factory>()
                 .FromSubContainerResolve()
-                .ByNewPrefab<SpaceObjectInstaller>(_settings.SpaceObjectPrefab);
-            Container.Bind<ObjectSpawner>().WithId("SpaceObjectSpawner").To<SpaceObjectSpawner>().AsSingle();
+                .ByNewPrefab<PlanetoidInstaller>(_settings.PlanetoidPrefab);
+            Container.Bind<ObjectSpawner>().WithId("PlanetoidSpawner").To<PlanetoidSpawner>().AsSingle();
 
             DeclareSignals();
         }
@@ -28,7 +28,7 @@ namespace SpaceGameOne
         [Serializable]
         public class Settings
         {
-            public GameObject SpaceObjectPrefab;
+            public GameObject PlanetoidPrefab;
         }
     }
 }

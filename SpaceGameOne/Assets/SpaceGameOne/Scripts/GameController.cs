@@ -17,7 +17,7 @@ namespace LostMemories
         public void Dispose() {}
 
         [Inject]
-        public void Construct([Inject(Id = "SpaceObjectSpawner")] ObjectSpawner objectSpawer)
+        public void Construct([Inject(Id = "PlanetoidSpawner")] ObjectSpawner objectSpawer)
         {
             _objectSpawner = objectSpawer;
             SpawnObject();

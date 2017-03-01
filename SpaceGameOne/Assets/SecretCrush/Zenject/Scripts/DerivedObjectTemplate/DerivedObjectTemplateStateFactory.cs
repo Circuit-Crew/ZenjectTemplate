@@ -7,9 +7,9 @@ using Zenject;
 
 namespace SpaceGameOne
 {
-    public class SpaceObjectStateFactory : ObjectStateFactory
+    public class DerivedObjectTemplateStateFactory : ObjectStateFactory
     {
-        public SpaceObjectStateFactory(DiContainer container)
+        public DerivedObjectTemplateStateFactory(DiContainer container)
             : base(container) {}
 
         public override void Validate()
@@ -25,7 +25,7 @@ namespace SpaceGameOne
             switch(state)
             {
                 case ObjectStates.DefaultState:
-                    return Container.Instantiate<SpaceObjectStateDefault>();
+                    return Container.Instantiate<DerivedObjectTemplateStateDefault>();
                 case ObjectStates.None:
                     break;
                 default:
