@@ -7,7 +7,7 @@ namespace SpaceGameOne
 {
     public class DerivedObjectTemplateInstaller : MonoInstaller<DerivedObjectTemplateInstaller>
     {
-        [SerializeField] private readonly Settings _settings = null;
+        [SerializeField] private Settings _settings = null;
 
         [InjectOptional] private readonly ObjectTunables _settingsOverride = null;
 
