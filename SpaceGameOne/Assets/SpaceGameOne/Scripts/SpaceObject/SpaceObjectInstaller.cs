@@ -22,11 +22,13 @@ namespace SpaceGameOne
             Container.BindInterfacesAndSelfTo<ObjectStateManager>().AsSingle();
             Container.BindInterfacesTo<ObjectStateCommon>().AsSingle();
         }
+
+        [Serializable]
+        public class Settings
+        {
+            public ObjectTunables DefaultSettings;
+        }
     }
 
-    [Serializable]
-    public class Settings
-    {
-        public ObjectTunables DefaultSettings;
-    }
+
 }
