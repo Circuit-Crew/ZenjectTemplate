@@ -128,6 +128,13 @@ namespace SecretCrush.Zenject.Editor
 
                 replacedContents = rgx.Replace(replacedContents, _newObjectName);
 
+                // Because I'm bad at regex
+                var lower = _oldName[0].ToString().ToLower() + _oldName.Substring(1);
+                rgx = new Regex(lower);
+
+                var lowerNew = _newObjectName[0].ToString().ToLower() + _newObjectName.Substring(1);
+                replacedContents = rgx.Replace(replacedContents, lowerNew);
+
                 File.WriteAllText(Path.Combine(newFile.DirectoryName, newFile.Name), replacedContents);
             }
 
