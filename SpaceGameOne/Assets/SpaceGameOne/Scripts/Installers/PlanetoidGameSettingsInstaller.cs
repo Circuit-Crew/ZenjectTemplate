@@ -1,5 +1,6 @@
 using SecretCrush.Zenject;
 using SpaceGameOne.Planetoid.States;
+using SpaceGameOne.States;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,8 @@ namespace SpaceGameOne
         public PlanetoidGameInstaller.Settings GameInstallerSettings;
         public PlanetoidSpawner.Settings PlanetoidSpawnerSettings;
         public PlanetoidStateMove.Settings PlanetoidMoveStateSettings;
+        public ShipSpawner.Settings ShipSpawnerSettings;
+        public ShipStateDefault.Settings ShipStateDefaultSettings;
 
         public override void InstallBindings()
         {
@@ -19,6 +22,8 @@ namespace SpaceGameOne
             Container.BindInstance(GameInstallerSettings);
             Container.BindInstance(PlanetoidSpawnerSettings);
             Container.BindInstance(PlanetoidMoveStateSettings);
+            Container.BindInstance(ShipSpawnerSettings);
+            Container.BindInstance(ShipStateDefaultSettings);
         }
     }
 }

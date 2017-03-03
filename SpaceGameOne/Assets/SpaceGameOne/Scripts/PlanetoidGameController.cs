@@ -11,20 +11,24 @@ namespace SpaceGameOne
     /// </summary>
     public class PlanetoidGameController : MonoBehaviour, IDisposable
     {
-        private PlanetoidSpawner _objectSpawner;
+        private PlanetoidSpawner _planetoidSpawner;
+        private ShipSpawner _shipSpawner;
 
         public void Dispose() {}
 
         [Inject]
-        public void Construct([Inject(Id = "PlanetoidSpawner")] ObjectSpawner objectSpawer)
+        public void Construct([Inject(Id = "PlanetoidSpawner")] ObjectSpawner objectSpawer, [Inject(Id = "ShipSpawner")] ObjectSpawner shipSpawner)
         {
-            _objectSpawner = (PlanetoidSpawner) objectSpawer;
-            _objectSpawner.SpawnInitPlanetoids();
+            _planetoidSpawner = (PlanetoidSpawner) objectSpawer;
+            _planetoidSpawner.SpawnInitPlanetoids();
+
+            _shipSpawner = (ShipSpawner) shipSpawner;
+            _shipSpawner.SpawnObject();
         }
 
         public void SpawnObject()
         {
-            _objectSpawner.SpawnObject();
+            _planetoidSpawner.SpawnObject();
         }
     }
 }

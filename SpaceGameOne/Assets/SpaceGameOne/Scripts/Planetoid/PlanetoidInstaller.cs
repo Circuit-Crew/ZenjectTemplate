@@ -15,7 +15,6 @@ namespace SpaceGameOne
         public override void InstallBindings()
         {
             _settings.DefaultSettings.InitState = (int) _settings.InitState;
-            //Container.BindInstance(_settingsOverride ?? _settings.DefaultSettings);
             Container.BindInstance(_settings.DefaultSettings);
             Container.BindInstance(_planetoidTunables);
 
