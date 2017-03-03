@@ -15,11 +15,16 @@ namespace SpaceGameOne
             _settings = settings;
         }
 
+        public void SpawnInitPlanetoids()
+        {
+            for (var i = 0; i < _settings.NumberToSpawn; i++)
+                SpawnObject();
+        }
+
         [Serializable]
         public class Settings
         {
-            public Vector2 InitPositionMin;
-            public Vector2 InitPositionMax;
+            [Range(0, 100)] public int NumberToSpawn;
         }
     }
 }

@@ -5,7 +5,7 @@ using Zenject;
 
 namespace SpaceGameOne
 {
-    public class GameInstaller : MonoInstaller<GameInstaller>
+    public class PlanetoidGameInstaller : MonoInstaller<PlanetoidGameInstaller>
     {
         [Inject] private readonly Settings _settings = null;
 
