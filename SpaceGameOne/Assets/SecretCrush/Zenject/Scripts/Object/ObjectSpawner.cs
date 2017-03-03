@@ -16,16 +16,16 @@ namespace SecretCrush.Zenject
             ObjectRegistry = registry;
         }
 
-        public virtual void SpawnObject()
+        public virtual ObjectFacade SpawnObject()
         {
             var settings = new ObjectTunables { };
-            ObjectFactory.Create(settings);
+            return ObjectFactory.Create(settings);
         }
 
-        public virtual void SpawnObject(object[] extraArgs)
+        public virtual ObjectFacade SpawnObject(object[] extraArgs)
         {
             var settings = new ObjectTunables { ExtraArgs = extraArgs};
-            ObjectFactory.Create(settings);
+            return ObjectFactory.Create(settings);
         }
     }
 }
