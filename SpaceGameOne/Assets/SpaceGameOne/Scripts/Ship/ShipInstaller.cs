@@ -1,5 +1,7 @@
 ﻿using System;
 using SecretCrush.Zenject;
+using SecretCrush.Zenject.InputModules;
+using SpaceGameOne.States;
 using UnityEngine;
 using Zenject;
 
@@ -25,6 +27,9 @@ namespace SpaceGameOne
             Container.Bind<ObjectStateFactory>().To<ShipStateFactory>().AsSingle();
             Container.BindInterfacesAndSelfTo<ObjectStateManager>().AsSingle();
             Container.BindInterfacesTo<ObjectStateCommon>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<InputModuleRigidbodyStrafe>().AsSingle();
+            Container.BindInterfacesAndSelfTo<InputModuleRigidbodyTorque>().AsSingle();
         }
 
         [Serializable]

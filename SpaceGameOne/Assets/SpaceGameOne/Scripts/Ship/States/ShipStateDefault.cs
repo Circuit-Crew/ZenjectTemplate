@@ -1,5 +1,6 @@
 ﻿using System;
 using SecretCrush.Zenject;
+using SecretCrush.Zenject.InputModules;
 using UnityEngine;
 
 namespace SpaceGameOne.States
@@ -8,10 +9,19 @@ namespace SpaceGameOne.States
     {
         private readonly Rigidbody2D _rigidbody;
         private readonly Settings _settings;
-        public ShipStateDefault(Rigidbody2D rigidbody, Settings settings)
+        private InputModuleRigidbodyStrafe _inputModuleRigidbodyStrafe;
+        private InputModuleRigidbodyTorque _inputModuleRigidbodyTorque;
+
+        public ShipStateDefault(
+            Rigidbody2D rigidbody,
+            Settings settings,
+            InputModuleRigidbodyStrafe inputModuleRigidbodyStrafe,
+            InputModuleRigidbodyTorque torque)
         {
             _rigidbody = rigidbody;
             _settings = settings;
+            _inputModuleRigidbodyStrafe = inputModuleRigidbodyStrafe;
+            _inputModuleRigidbodyTorque = torque;
         }
 
         public void Dispose() {}
@@ -20,23 +30,11 @@ namespace SpaceGameOne.States
 
         public void Update()
         {
-            _rigidbody.AddRelativeForce(Vector2.up * Input.GetAxis("Ship Forward") * _settings.Force);
-            _rigidbody.AddRelativeForce(Vector2.right * Input.GetAxis("Ship Strafe") * _settings.Force);
-
-            var turn = Input.GetAxis("Ship Turn");
-
-            _rigidbody.AddTorque(turn);
         }
 
-        public void LateUpdate()
-        {
-            
-        }
+        public void LateUpdate() {}
 
         [Serializable]
-        public class Settings
-        {
-            public float Force;
-        }
+        public class Settings {}
     }
 }
