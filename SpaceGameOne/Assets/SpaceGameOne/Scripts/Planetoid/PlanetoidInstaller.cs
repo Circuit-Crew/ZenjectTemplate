@@ -7,6 +7,7 @@ namespace SpaceGameOne
 {
     public class PlanetoidInstaller : MonoInstaller<PlanetoidInstaller>
     {
+        [SerializeField] private PlanetoidTunables _planetoidTunables = null;
         [SerializeField] private Settings _settings = null;
 
         [InjectOptional] private ObjectTunables _settingsOverride = null;
@@ -16,6 +17,7 @@ namespace SpaceGameOne
             _settings.DefaultSettings.InitState = (int) _settings.InitState;
             //Container.BindInstance(_settingsOverride ?? _settings.DefaultSettings);
             Container.BindInstance(_settings.DefaultSettings);
+            Container.BindInstance(_planetoidTunables);
 
             Container.Bind<PlanetoidModel>().AsSingle();
             Container.Bind<ObjectModel>().To<PlanetoidModel>().AsSingle();
@@ -29,7 +31,19 @@ namespace SpaceGameOne
         public class Settings
         {
             public PlanetoidState InitState;
+
             public ObjectTunables DefaultSettings;
+        }
+
+        [Serializable]
+        public class PlanetoidTunables
+        {
+            [Range(0, 1f)] public float PositionMin;
+            public float PositionMax;
+            public float RadiusMin;
+            public float RadiusMax;
+            public float EffectorRadiusScale;
+            public float EffectorForceScale;
         }
     }
 }

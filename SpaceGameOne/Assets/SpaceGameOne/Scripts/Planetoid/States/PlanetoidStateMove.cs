@@ -16,7 +16,9 @@ namespace SpaceGameOne.Planetoid.States
 
         public void Initialize()
         {
-            _model.Rigidbody.AddRelativeForce(Vector2.down, ForceMode2D.Impulse);
+            var d = Vector2.Distance(_model.Rigidbody.position, Vector2.zero);
+            var f = 1000 / d * d;
+            _model.Rigidbody.AddRelativeForce(new Vector2(_model.Rigidbody.position.y / d, -_model.Rigidbody.position.x / d) * f);
         }
 
         public void Update() {}

@@ -12,7 +12,7 @@ namespace LostMemories
     public class GameController : MonoBehaviour, IDisposable
     {
         private ObjectSpawner _objectSpawner;
-
+        [Range(1, 100)] public int num;
 
         public void Dispose() {}
 
@@ -20,7 +20,11 @@ namespace LostMemories
         public void Construct([Inject(Id = "PlanetoidSpawner")] ObjectSpawner objectSpawer)
         {
             _objectSpawner = objectSpawer;
-            SpawnObject();
+
+            for (int i = 0; i < num; i++)
+            {
+                SpawnObject();
+            }
         }
 
         public void SpawnObject()

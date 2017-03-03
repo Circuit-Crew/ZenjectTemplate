@@ -1,5 +1,6 @@
 ﻿using System;
 using SecretCrush.Zenject;
+using UnityEngine;
 
 namespace SpaceGameOne
 {
@@ -17,7 +18,8 @@ namespace SpaceGameOne
         [Serializable]
         public class Settings
         {
-            
+            public Vector2 InitPositionMin;
+            public Vector2 InitPositionMax;
         }
     }
 }
