@@ -30,11 +30,9 @@ namespace Zenject
             _finalizerWrapper.SubFinalizer = new NullBindingFinalizer();
 
             var lookupId = Guid.NewGuid();
-            var lazyLookup = new Lazy<THandler>(
-                _container, new InjectContext(_container, typeof(THandler), lookupId));
 
             _container.Bind(typeof(IInitializable), typeof(IDisposable)).To<InstanceMethodSignalHandler<THandler>>().AsCached()
-                .WithArguments(methodGetter, lazyLookup, new BindingId(_signalType, Identifier));
+                .WithArguments(methodGetter, new InjectContext(_container, typeof(THandler), lookupId), new BindingId(_signalType, Identifier));
 
             var info = new BindInfo(typeof(THandler));
 
@@ -93,11 +91,9 @@ namespace Zenject
             _finalizerWrapper.SubFinalizer = new NullBindingFinalizer();
 
             var lookupId = Guid.NewGuid();
-            var lazyLookup = new Lazy<THandler>(
-                _container, new InjectContext(_container, typeof(THandler), lookupId));
 
             _container.Bind(typeof(IInitializable), typeof(IDisposable)).To<InstanceMethodSignalHandler<TParam1, THandler>>().AsCached()
-                .WithArguments(methodGetter, lazyLookup, new BindingId(_signalType, Identifier));
+                .WithArguments(methodGetter, new InjectContext(_container, typeof(THandler), lookupId), new BindingId(_signalType, Identifier));
 
             var info = new BindInfo(typeof(THandler));
 
@@ -156,11 +152,9 @@ namespace Zenject
             _finalizerWrapper.SubFinalizer = new NullBindingFinalizer();
 
             var lookupId = Guid.NewGuid();
-            var lazyLookup = new Lazy<THandler>(
-                _container, new InjectContext(_container, typeof(THandler), lookupId));
 
             _container.Bind(typeof(IInitializable), typeof(IDisposable)).To<InstanceMethodSignalHandler<TParam1, TParam2, THandler>>().AsCached()
-                .WithArguments(methodGetter, lazyLookup, new BindingId(_signalType, Identifier));
+                .WithArguments(methodGetter, new InjectContext(_container, typeof(THandler), lookupId), new BindingId(_signalType, Identifier));
 
             var info = new BindInfo(typeof(THandler));
 
@@ -219,11 +213,9 @@ namespace Zenject
             _finalizerWrapper.SubFinalizer = new NullBindingFinalizer();
 
             var lookupId = Guid.NewGuid();
-            var lazyLookup = new Lazy<THandler>(
-                _container, new InjectContext(_container, typeof(THandler), lookupId));
 
             _container.Bind(typeof(IInitializable), typeof(IDisposable)).To<InstanceMethodSignalHandler<TParam1, TParam2, TParam3, THandler>>().AsCached()
-                .WithArguments(methodGetter, lazyLookup, new BindingId(_signalType, Identifier));
+                .WithArguments(methodGetter, new InjectContext(_container, typeof(THandler), lookupId), new BindingId(_signalType, Identifier));
 
             var info = new BindInfo(typeof(THandler));
 
@@ -282,11 +274,9 @@ namespace Zenject
             _finalizerWrapper.SubFinalizer = new NullBindingFinalizer();
 
             var lookupId = Guid.NewGuid();
-            var lazyLookup = new Lazy<THandler>(
-                _container, new InjectContext(_container, typeof(THandler), lookupId));
 
             _container.Bind(typeof(IInitializable), typeof(IDisposable)).To<InstanceMethodSignalHandler<TParam1, TParam2, TParam3, TParam4, THandler>>().AsCached()
-                .WithArguments(methodGetter, lazyLookup, new BindingId(_signalType, Identifier));
+                .WithArguments(methodGetter, new InjectContext(_container, typeof(THandler), lookupId), new BindingId(_signalType, Identifier));
 
             var info = new BindInfo(typeof(THandler));
 
