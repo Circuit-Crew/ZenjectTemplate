@@ -1,52 +1,83 @@
 ﻿using System;
 using SecretCrush.Zenject;
 using UnityEngine;
+using Zenject;
+using Random = UnityEngine.Random;
 
 namespace SpaceGameOne
 {
     public class PlanetoidSpawner : ObjectSpawner
     {
         private readonly Settings _settings;
+        private readonly PlanetoidFacade.Pool _pool;
+        private Signals.DespawnPlanetoid _despawnPlanetoidSignal;
 
         public PlanetoidSpawner(
             ObjectGlobalTunables globalTunables,
             ObjectRegistry registry,
             PlanetoidFacade.Factory factory,
-            Settings settings)
+            PlanetoidFacade.Pool pool,
+            Settings settings,
+            Signals.DespawnPlanetoid despawnPlanetoid)
             : base(globalTunables, registry)
         {
             ObjectFactory = factory;
             _settings = settings;
+            _pool = pool;
+
+            _despawnPlanetoidSignal = despawnPlanetoid;
+            _despawnPlanetoidSignal += DespawnPlanetoid;
         }
 
         public void SpawnInitPlanetoids()
         {
             for (var i = 0; i < _settings.NumberToSpawn; i++)
-                SpawnObject(new object[] {Vector2.zero});
+                CreateObject(new object[] {Vector2.zero});
         }
 
-        public void SpawnAtPosition(Vector2 pos)
+        public void CreateAtPosition(Vector2 pos)
         {
-            var obj = SpawnObject(new object[] {pos});
+            var obj = CreateObject(new object[] {pos});
             var model = (PlanetoidModel) obj.Model;
             model.Rigidbody.position += pos;
         }
 
-        public void SpawnAtPosition(PlanetoidState initState, Vector2 pos)
+        public void CreateAtPosition(PlanetoidState initState, Vector2 pos)
         {
-            var obj = SpawnObject(new object[] { pos }, initState);
+            var obj = CreateObject(new object[] { pos }, initState);
             var model = (PlanetoidModel)obj.Model;
+
+            model.Rigidbody.position = pos + GetRandomSpawnLocation();
         }
 
-        private ObjectFacade SpawnObject(object[] extraArgs, PlanetoidState initState = PlanetoidState.DefaultState)
+        private ObjectFacade CreateObject(object[] extraArgs, PlanetoidState initState = PlanetoidState.DefaultState)
         {
             var t = new ObjectTunables
             {
                 InitState = (int) initState,
                 ExtraArgs = extraArgs
             };
-            var obj = ObjectFactory.Create(t);
+            //var obj = ObjectFactory.Create(t);
+            var obj = _pool.Spawn(t);
             return obj;
+        }
+
+        public void DespawnPlanetoid(PlanetoidFacade which)
+        {
+            _pool.Despawn(which);
+        }
+
+        public void DespawnAllPlanetoids()
+        {
+            _pool.DespawnAll();
+        }
+
+        private Vector2 GetRandomSpawnLocation()
+        {
+            var dist = Random.Range(_settings.PositionMin, _settings.PositionMax);
+            var dir = Random.insideUnitCircle.normalized;
+            var r = dir * dist;
+            return r;
         }
 
         [Serializable]
@@ -54,6 +85,8 @@ namespace SpaceGameOne
         {
             [Range(0, 100)] public int NumberToSpawn;
             public PlanetoidState InitState;
+            public float PositionMin;
+            public float PositionMax;
         }
     }
 }

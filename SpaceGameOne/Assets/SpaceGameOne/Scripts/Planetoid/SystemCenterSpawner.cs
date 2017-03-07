@@ -1,6 +1,7 @@
 ﻿using System;
 using SecretCrush.Zenject;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace SpaceGameOne
@@ -15,25 +16,25 @@ namespace SpaceGameOne
             ObjectRegistry registry,
             SystemCenterFacade.Factory factory,
             Settings settings,
-            PlanetoidSpawner planetoidSpawner)
+            [Inject(Id = "PlanetoidSpawner")] ObjectSpawner planetoidSpawner)
             : base(globalTunables, registry)
         {
             ObjectFactory = factory;
             _settings = settings;
-            _planetoidSpawner = planetoidSpawner;
+            _planetoidSpawner = (PlanetoidSpawner) planetoidSpawner;
         }
 
         public void SpawnInitSystems()
         {
             for (var i = 0; i < _settings.NumberToSpawn; i++)
             {
-                var sysFacade = (SystemCenterFacade) SpawnObject();
+                var sysFacade = (SystemCenterFacade) CreateObject();
                 var pos = ((SystemCenterModel) sysFacade.Model).Transform;
 
                 var r = Random.insideUnitCircle * _settings.SpawnRadius;
                 pos.position = r;
                 for (var j = 0; j < _settings.NumberOfPlanetsPerSystem; j++)
-                    _planetoidSpawner.SpawnAtPosition(_settings.InitPlanetoidState, pos.position);
+                    _planetoidSpawner.CreateAtPosition(_settings.InitPlanetoidState, pos.position);
             }
         }
 

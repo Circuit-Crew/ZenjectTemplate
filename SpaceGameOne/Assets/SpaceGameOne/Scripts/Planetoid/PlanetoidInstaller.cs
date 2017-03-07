@@ -36,8 +36,7 @@ namespace SpaceGameOne
         [Serializable]
         public class PlanetoidTunables
         {
-            public float PositionMin;
-            public float PositionMax;
+
             public float RadiusMin;
             public float RadiusMax;
             public float EffectorRadiusScale;

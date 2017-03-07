@@ -17,6 +17,7 @@ namespace SpaceGameOne
         private CircleCollider2D SpriteCollider { get; set; }
 
         private Transform EffectorSpriteTransform { get; set; }
+        public PlanetoidFacade Facade { get; private set; }
 
         public PlanetoidModel(
             ObjectTunables settings,
@@ -26,8 +27,8 @@ namespace SpaceGameOne
             PointEffector2D effector,
             [Inject(Id = "EffectorCollider")] CircleCollider2D effectorCollider,
             [Inject(Id = "SpriteCollider")] CircleCollider2D spriteCollider,
-            [Inject(Id = "EffectorSprite")] Transform effectorTransform
-            )
+            [Inject(Id = "EffectorSprite")] Transform effectorTransform,
+            PlanetoidFacade facade)
             : base(settings, stateManager)
         {
             Rigidbody = rigidbody;
@@ -37,16 +38,7 @@ namespace SpaceGameOne
             _tunables = tunables;
             SpriteCollider = spriteCollider;
             EffectorSpriteTransform = effectorTransform;
-
-            var origin = Vector2.zero;
-            if (settings.ExtraArgs[0] is Vector2)
-                origin = (Vector2) settings.ExtraArgs[0];
-
-            var dist = Random.Range(_tunables.PositionMin, _tunables.PositionMax);
-            var dir = Random.insideUnitCircle.normalized;
-            var r = dir * dist;
-            Rigidbody.position = origin + r;
-
+            Facade = facade;
 
             var exp = new CurveTestScript {direction = RandomFromDistribution.Direction_e.Left, skew = 100f};
             var scale = exp.GetRandomNumber(1, tunables.RadiusMax);

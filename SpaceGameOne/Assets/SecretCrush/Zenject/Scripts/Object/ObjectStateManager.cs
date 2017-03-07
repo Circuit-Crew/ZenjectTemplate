@@ -6,8 +6,8 @@ namespace SecretCrush.Zenject
 {
     public class ObjectStateManager : ITickable, IInitializable, IDisposable, ILateTickable
     {
-        private readonly int _initState;
-        private readonly object[] _initArgs;
+        private int _initState;
+        private object[] _initArgs;
 
         public ObjectStateFactory StateFactory { get; private set; }
         public IObjectState StateHandler { get; private set; }
@@ -30,7 +30,7 @@ namespace SecretCrush.Zenject
 
         public void Initialize()
         {
-            Assert.IsEqual(CurrentState, 0);
+            //Assert.IsEqual(CurrentState, 0);
             Assert.IsNull(StateHandler);
             ChangeState(_initState, _initArgs);
         }
@@ -43,6 +43,12 @@ namespace SecretCrush.Zenject
         public void Tick()
         {
             StateHandler.Update();
+        }
+
+        public void Reinitialize(ObjectTunables settings)
+        {
+            _initState = settings.InitState;
+            _initArgs = settings.ExtraArgs;
         }
 
         public void ChangeState(int state, object[] extraArgs)

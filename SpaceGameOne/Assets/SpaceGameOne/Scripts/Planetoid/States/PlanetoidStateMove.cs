@@ -1,6 +1,7 @@
 ﻿using System;
 using SecretCrush.Zenject;
 using UnityEngine;
+using Zenject;
 
 namespace SpaceGameOne.Planetoid.States
 {
@@ -8,6 +9,7 @@ namespace SpaceGameOne.Planetoid.States
     {
         private readonly PlanetoidModel _model;
         private readonly Vector2 _initCenterPos;
+        [Inject] private Signals.DespawnPlanetoid _despawnPlanetoid;
 
         public PlanetoidStateMove(PlanetoidModel model, Vector2 initCenterPos)
         {
@@ -33,7 +35,7 @@ namespace SpaceGameOne.Planetoid.States
 
         public void LateUpdate()
         {
-            if (_model.Rigidbody.position.sqrMagnitude > (1000 * 1000)) GameObject.Destroy(_model.Rigidbody.gameObject);
+            if (_model.Rigidbody.position.sqrMagnitude > (1000 * 1000)) _despawnPlanetoid.Fire(_model.Facade);
         }
 
     }

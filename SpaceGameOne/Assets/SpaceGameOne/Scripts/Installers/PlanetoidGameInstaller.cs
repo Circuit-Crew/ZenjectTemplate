@@ -1,6 +1,5 @@
 using System;
 using SecretCrush.Zenject;
-using SpaceGameOne.SystemCenter;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +15,10 @@ namespace SpaceGameOne
             Container.BindFactory<ObjectTunables, ObjectFacade, PlanetoidFacade.Factory>()
                 .FromSubContainerResolve()
                 .ByNewPrefab<PlanetoidInstaller>(_settings.PlanetoidPrefab);
+            Container.BindMemoryPool<PlanetoidFacade, PlanetoidFacade.Pool>()
+                .WithInitialSize(20)
+                .FromComponentInNewPrefab(_settings.PlanetoidPrefab)
+                .UnderTransformGroup("Planetoids");
             Container.Bind<ObjectSpawner>().WithId("PlanetoidSpawner").To<PlanetoidSpawner>().AsSingle();
 
             Container.BindFactory<ObjectTunables, ObjectFacade, ShipFacade.Factory>()
@@ -28,14 +31,13 @@ namespace SpaceGameOne
                 .ByNewPrefab<SystemCenterInstaller>(_settings.SystemCenterPrefab);
             Container.Bind<ObjectSpawner>().WithId("SystemCenterSpawner").To<SystemCenterSpawner>().AsSingle();
 
-            Container.Bind<PlanetoidSpawner>().WhenInjectedInto<SystemCenterSpawner>();
-
             DeclareSignals();
         }
 
         private void DeclareSignals()
         {
-            // if you have signals 
+            Container.Bind<SignalManager>().AsSingle();
+            Container.DeclareSignal<Signals.DespawnPlanetoid>();
         }
 
         [Serializable]
