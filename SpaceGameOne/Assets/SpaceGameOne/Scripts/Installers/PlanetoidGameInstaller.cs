@@ -38,6 +38,8 @@ namespace SpaceGameOne
         {
             Container.Bind<SignalManager>().AsSingle();
             Container.DeclareSignal<Signals.DespawnPlanetoid>();
+            Container.DeclareSignal<Signals.SystemGrow>();
+            Container.DeclareSignal<Signals.Supernova>();
         }
 
         [Serializable]

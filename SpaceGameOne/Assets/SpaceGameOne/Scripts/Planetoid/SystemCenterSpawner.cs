@@ -42,7 +42,7 @@ namespace SpaceGameOne
         public class Settings
         {
             public float SpawnRadius;
-            [Range(0, 12)] public int NumberToSpawn;
+            [Range(0, 20)] public int NumberToSpawn;
             [Range(0, 12)] public int NumberOfPlanetsPerSystem;
             public PlanetoidState InitPlanetoidState;
         }

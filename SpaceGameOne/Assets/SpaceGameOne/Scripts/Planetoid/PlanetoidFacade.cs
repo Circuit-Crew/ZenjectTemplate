@@ -8,6 +8,8 @@ namespace SpaceGameOne
     public class PlanetoidFacade : ObjectFacade
     {
         [Inject] private Signals.DespawnPlanetoid _despawnPlanetoidSignal;
+        [Inject] private Signals.SystemGrow _systemGrowSignal;
+        [Inject] private PlanetoidModel _model;
 
         public string[] ValidTags;
 
@@ -20,6 +22,13 @@ namespace SpaceGameOne
         {
             if (!ValidTags.Any(validTag => collision.gameObject.CompareTag(validTag))) return;
             _despawnPlanetoidSignal.Fire(this);
+            _systemGrowSignal.Fire(collision.gameObject.GetComponent<SystemCenterFacade>());
+            collision.gameObject.GetComponent<SystemCenterFacade>().Grow();
+        }
+
+        public void AddExplosionForce()
+        {
+            _model.Rigidbody.AddForce(Random.insideUnitCircle * 1000);
         }
 
         public new class Factory : Factory<ObjectTunables, ObjectFacade> {}
