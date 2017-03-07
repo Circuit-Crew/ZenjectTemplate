@@ -25,7 +25,7 @@ namespace SpaceGameOne
             Assert.That(Application.isEditor);
 
             foreach (var state in new[] { PlanetoidState.DefaultState, PlanetoidState.Move })
-                Create((int) state);
+                Create(state, new object[] {Vector2.zero});
         }
 
         public override IObjectState Create(int state, object[] extraArgs = null)
@@ -38,7 +38,7 @@ namespace SpaceGameOne
                 case PlanetoidState.None:
                     break;
                 case PlanetoidState.Move:
-                    return Container.Instantiate<PlanetoidStateMove>();
+                    return Container.Instantiate<PlanetoidStateMove>(extraArgs);
                 default:
                     throw new ArgumentOutOfRangeException("state", state, null);
             }

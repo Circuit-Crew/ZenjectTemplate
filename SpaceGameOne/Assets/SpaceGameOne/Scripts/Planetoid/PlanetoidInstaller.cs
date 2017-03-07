@@ -15,7 +15,7 @@ namespace SpaceGameOne
         public override void InstallBindings()
         {
             _settings.DefaultSettings.InitState = (int) _settings.InitState;
-            Container.BindInstance(_settings.DefaultSettings);
+            Container.BindInstance(_settingsOverride ?? _settings.DefaultSettings);
             Container.BindInstance(_planetoidTunables);
 
             Container.Bind<PlanetoidModel>().AsSingle();
@@ -30,14 +30,13 @@ namespace SpaceGameOne
         public class Settings
         {
             public PlanetoidState InitState;
-
             public ObjectTunables DefaultSettings;
         }
 
         [Serializable]
         public class PlanetoidTunables
         {
-            [Range(0, 1f)] public float PositionMin;
+            public float PositionMin;
             public float PositionMax;
             public float RadiusMin;
             public float RadiusMax;

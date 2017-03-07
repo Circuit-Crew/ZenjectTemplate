@@ -13,17 +13,24 @@ namespace SpaceGameOne
     {
         private PlanetoidSpawner _planetoidSpawner;
         private ShipSpawner _shipSpawner;
+        private SystemCenterSpawner _systemSpawner;
 
         public void Dispose() {}
 
         [Inject]
-        public void Construct([Inject(Id = "PlanetoidSpawner")] ObjectSpawner objectSpawer, [Inject(Id = "ShipSpawner")] ObjectSpawner shipSpawner)
+        public void Construct(
+            [Inject(Id = "PlanetoidSpawner")] ObjectSpawner objectSpawer,
+            [Inject(Id = "ShipSpawner")] ObjectSpawner shipSpawner,
+            [Inject(Id = "SystemCenterSpawner")] ObjectSpawner systemCenterSpawner)
         {
+            _systemSpawner = (SystemCenterSpawner) systemCenterSpawner;
+            _systemSpawner.SpawnInitSystems();
+
             _planetoidSpawner = (PlanetoidSpawner) objectSpawer;
             _planetoidSpawner.SpawnInitPlanetoids();
 
             _shipSpawner = (ShipSpawner) shipSpawner;
-            _shipSpawner.SpawnObject();
+            //_shipSpawner.SpawnObject();
         }
 
         public void SpawnObject()

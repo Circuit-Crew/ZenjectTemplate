@@ -10,7 +10,7 @@ namespace SecretCrush.Zenject
     public class ObjectTunables
     {
         public int InitState = 1;
-        public object[] ExtraArgs = null;
+        public object[] ExtraArgs;
     }
 
     /// <summary>

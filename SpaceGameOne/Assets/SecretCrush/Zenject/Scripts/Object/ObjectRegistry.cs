@@ -4,18 +4,18 @@ namespace SecretCrush.Zenject
 {
     public class ObjectRegistry
     {
-        private readonly List<ObjectFacade> _Objects = new List<ObjectFacade>();
+        private readonly List<ObjectFacade> _objects = new List<ObjectFacade>();
 
-        public List<ObjectFacade> Objects { get { return _Objects; } }
+        public List<ObjectFacade> Objects { get { return _objects; } }
 
         public void AddObject(ObjectFacade facade)
         {
-            _Objects.Add(facade);
+            _objects.Add(facade);
         }
 
         public void RemoveObject(ObjectFacade facade)
         {
-            _Objects.Remove(facade);
+            _objects.Remove(facade);
         }
     }
 }

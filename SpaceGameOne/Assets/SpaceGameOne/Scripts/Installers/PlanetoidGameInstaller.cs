@@ -22,6 +22,13 @@ namespace SpaceGameOne
                 .ByNewPrefab<ShipInstaller>(_settings.ShipPrefab);
             Container.Bind<ObjectSpawner>().WithId("ShipSpawner").To<ShipSpawner>().AsSingle();
 
+            Container.BindFactory<ObjectTunables, ObjectFacade, SystemCenterFacade.Factory>()
+                .FromSubContainerResolve()
+                .ByNewPrefab<SystemCenterInstaller>(_settings.SystemCenterPrefab);
+            Container.Bind<ObjectSpawner>().WithId("SystemCenterSpawner").To<SystemCenterSpawner>().AsSingle();
+
+            Container.Bind<PlanetoidSpawner>().WhenInjectedInto<SystemCenterSpawner>();
+
             DeclareSignals();
         }
 
@@ -35,6 +42,7 @@ namespace SpaceGameOne
         {
             public GameObject PlanetoidPrefab;
             public GameObject ShipPrefab;
+            public GameObject SystemCenterPrefab;
         }
     }
 }

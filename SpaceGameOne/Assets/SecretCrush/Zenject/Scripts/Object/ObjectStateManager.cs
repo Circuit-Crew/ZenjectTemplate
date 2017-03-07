@@ -47,7 +47,7 @@ namespace SecretCrush.Zenject
 
         public void ChangeState(int state, object[] extraArgs)
         {
-            if (CurrentState == state && (extraArgs == _initArgs))
+            if (CurrentState == state)
                 return;
 
             CurrentState = state;

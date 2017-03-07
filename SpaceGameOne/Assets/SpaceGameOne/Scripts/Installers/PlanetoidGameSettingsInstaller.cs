@@ -13,22 +13,22 @@ namespace SpaceGameOne
         public ObjectGlobalTunables ObjectGlobalTunablesSettings;
         public PlanetoidGameInstaller.Settings GameInstallerSettings;
         public PlanetoidSpawner.Settings PlanetoidSpawnerSettings;
-        public PlanetoidStateMove.Settings PlanetoidMoveStateSettings;
         public ShipSpawner.Settings ShipSpawnerSettings;
         public ShipStateDefault.Settings ShipStateDefaultSettings;
         public InputModuleRigidbodyStrafe.Settings StrafeSettings;
         public InputModuleRigidbodyTorque.Settings TorqueSettings;
+        public SystemCenterSpawner.Settings SystemSpawnerSettings;
 
         public override void InstallBindings()
         {
             Container.BindInstance(ObjectGlobalTunablesSettings);
             Container.BindInstance(GameInstallerSettings);
             Container.BindInstance(PlanetoidSpawnerSettings);
-            Container.BindInstance(PlanetoidMoveStateSettings);
             Container.BindInstance(ShipSpawnerSettings);
             Container.BindInstance(ShipStateDefaultSettings);
             Container.BindInstance(StrafeSettings);
             Container.BindInstance(TorqueSettings);
+            Container.BindInstance(SystemSpawnerSettings);
         }
     }
 }

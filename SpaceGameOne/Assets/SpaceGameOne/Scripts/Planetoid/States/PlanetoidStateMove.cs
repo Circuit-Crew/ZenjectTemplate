@@ -7,32 +7,34 @@ namespace SpaceGameOne.Planetoid.States
     public class PlanetoidStateMove : IObjectState
     {
         private readonly PlanetoidModel _model;
-        private readonly Settings _settings;
+        private readonly Vector2 _initCenterPos;
 
-        public PlanetoidStateMove(PlanetoidModel model, Settings settings)
+        public PlanetoidStateMove(PlanetoidModel model, Vector2 initCenterPos)
         {
             _model = model;
-            _settings = settings;
+            _initCenterPos = initCenterPos;
         }
 
         public void Dispose() {}
 
         public void Initialize()
         {
-            var d = Vector2.Distance(_model.Rigidbody.position, Vector2.zero);
-            // this is bad and doesn't actually do what it should do but it's close enough
-            var f = _settings.ForceScale * _model.Rigidbody.mass / d * d;
-            _model.Rigidbody.AddRelativeForce(new Vector2(_model.Rigidbody.position.y / d, -_model.Rigidbody.position.x / d) * f);
+            var d = Vector2.Distance(_model.Rigidbody.position, _initCenterPos);
+            var _relPos = _model.Rigidbody.position - _initCenterPos;
+            var g = 1000f / (d * d);
+            var angularVelocity = Mathf.Sqrt(1000 / d);
+            //var angularVel = Mathf.Abs(g) * Mathf.Sin(90 * Mathf.Deg2Rad) / d;
+            var dir = new Vector2(_relPos.y, -_relPos.x).normalized;
+            //_model.Rigidbody.velocity = dir * angularVelocity;
+            _model.Rigidbody.AddForce(dir * angularVelocity, ForceMode2D.Impulse);
         }
 
         public void Update() {}
 
-        public void LateUpdate() {}
-
-        [Serializable]
-        public class Settings
+        public void LateUpdate()
         {
-            public float ForceScale;
+            if (_model.Rigidbody.position.sqrMagnitude > (1000 * 1000)) GameObject.Destroy(_model.Rigidbody.gameObject);
         }
+
     }
 }
