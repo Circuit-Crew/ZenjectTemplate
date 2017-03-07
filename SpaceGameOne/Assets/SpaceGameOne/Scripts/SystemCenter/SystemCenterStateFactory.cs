@@ -1,10 +1,11 @@
 ﻿using System;
 using ModestTree;
-using SpaceGameOne.States;
+using SecretCrush.Zenject;
+using SpaceGameOne.SystemCenter.States;
 using UnityEngine;
 using Zenject;
 
-namespace SecretCrush.Zenject.SystemCenter
+namespace SpaceGameOne
 {
     public enum SystemCenterState 
     {

@@ -1,6 +1,6 @@
 ﻿using SecretCrush.Zenject;
 
-namespace SpaceGameOne.States
+namespace SpaceGameOne.SystemCenter.States
 {
     public class SystemCenterStateDefault : IObjectState
     {
